@@ -1,0 +1,14 @@
+FROM cgr.dev/chainguard/static:latest
+
+ARG APP_COMMIT
+ARG APP_BUILD_TIMESTAMP
+
+ENV APP_COMMIT=${APP_COMMIT}
+ENV APP_BUILD_TIMESTAMP=${APP_BUILD_TIMESTAMP}
+ENV APP_ADDRESS=0.0.0.0:8080
+ENV APP_LOG_FORMAT=json
+
+COPY dist/api-service /api-service
+
+CMD ["/api-service"]
+EXPOSE 8080

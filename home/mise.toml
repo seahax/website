@@ -1,0 +1,43 @@
+[env]
+_.path = ["{{ config_root }}/node_modules/.bin"]
+
+[tasks.start]
+run = '''
+vite dev
+'''
+
+[tasks.test]
+run = '''
+tsc -b -f tsconfig.build.json
+eslint src --max-warnings=0
+vitest run
+'''
+
+[tasks.build]
+run = '''
+vite build
+'''
+
+[tasks.publish]
+description = "Deploy home frontend to CDN"
+env.BUCKET = "cdn--seahax-194722422414"
+env.DISTRIBUTION = "E2UQKRZMWSCWZ"
+run = '''
+pnpm build
+pnpm test
+aws s3 cp dist "s3://$BUCKET" \
+  --recursive \
+  --exclude "*" \
+  --include "assets/*" \
+  --cache-control "public, max-age=31536000, immutable" \
+  --storage-class INTELLIGENT_TIERING
+aws s3 cp dist "s3://$BUCKET" \
+  --recursive \
+  --exclude "assets/*" \
+  --exclude "*tsbuildinfo" \
+  --cache-control "public, max-age=60, stale-while-revalidate=2592000" \
+  --storage-class INTELLIGENT_TIERING
+aws cloudfront create-invalidation \
+  --distribution-id "$DISTRIBUTION" \
+  --paths "/index.html"
+'''

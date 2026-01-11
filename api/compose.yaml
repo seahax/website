@@ -1,0 +1,32 @@
+name: seahax-api
+networks:
+  seahax-api:
+services:
+  service:
+    build:
+      context: .
+      args:
+        APP_COMMIT: ${APP_COMMIT}
+        APP_BUILD_TIMESTAMP: ${APP_BUILD_TIMESTAMP}
+    platform: linux/amd64
+    environment:
+      - APP_ENVIRONMENT=${APP_ENVIRONMENT}
+      - APP_LOG_LEVEL=${APP_LOG_LEVEL}
+      - APP_SMTP_SERVER=${APP_SMTP_SERVER}
+      - APP_SMTP_PORT=${APP_SMTP_PORT}
+      - APP_SMTP_USERNAME=${APP_SMTP_USERNAME}
+      - APP_SMTP_TOKEN=${APP_SMTP_TOKEN}
+      - APP_MONGODB_URL=mongodb://root:${MONGO_ROOT_PASSWORD}@seahax-api-mongo-1:27017/admin?authSource=admin
+    networks:
+      - seahax-api
+    ports:
+      - 8080:8080
+  mongo:
+    image: mongo
+    networks:
+      - seahax-api
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}

@@ -1,0 +1,44 @@
+[env]
+APP_ENVIRONMENT = "development"
+APP_LOG_LEVEL = 'debug'
+APP_SMTP_SERVER = 'smtp.protonmail.ch'
+APP_SMTP_PORT = '587'
+APP_SMTP_USERNAME = 'noreply@seahax.com'
+
+[tasks.start]
+run = [{ task = "build" }, '''
+export APP_COMMIT=development
+export APP_BUILD_TIMESTAMP=$(date +%s)
+docker-compose up --remove-orphans --no-attach mongo
+''']
+
+[tasks.build]
+env.GOOS = "linux"
+env.GOARCH = "amd64"
+env.CGO_ENABLED = 0
+run = '''
+rm -rf dist/*
+go build -o dist/api-service .
+'''
+
+[tasks.build-image]
+run = [{ task = "build" }, '''
+docker build --no-cache --progress=plain \
+  --platform linux/amd64 \
+  --build-arg APP_COMMIT="$(git rev-parse --short HEAD)" \
+  --build-arg APP_BUILD_TIMESTAMP="$(date +%s)" \
+  -t ghcr.io/seahax/api:latest \
+  .
+''']
+
+[tasks.push-image]
+run = [{ task = "build-image" }, '''
+docker login ghcr.io -u seahax --password "${GITHUB_TOKEN}"
+docker push ghcr.io/seahax/api:latest
+''']
+
+[tasks.deploy]
+env.APP_ID = "a3f95b1c-ab46-4c67-ac1e-1c0830887307"
+run = [{ task = "push-image" }, '''
+doctl app create-deployment "${APP_ID}"
+''']
