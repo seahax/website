@@ -23,9 +23,7 @@ description = "Deploy home frontend to CDN"
 env.BUCKET = "cdn--seahax-194722422414"
 env.DISTRIBUTION = "E2UQKRZMWSCWZ"
 env.PREFIX = "/app/hex"
-run = '''
-pnpm test
-pnpm build
+run = [{ task = "build" }, { task = "test" }, '''
 aws s3 cp dist "s3://${BUCKET}${PREFIX}" \
   --recursive \
   --exclude "*" \
@@ -41,4 +39,4 @@ aws s3 cp dist "s3://${BUCKET}${PREFIX}" \
 aws cloudfront create-invalidation \
   --distribution-id "$DISTRIBUTION" \
   --paths "${PREFIX}/index.html"
-'''
+''']

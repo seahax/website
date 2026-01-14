@@ -22,9 +22,7 @@ vite build
 description = "Deploy home frontend to CDN"
 env.BUCKET = "cdn--seahax-194722422414"
 env.DISTRIBUTION = "E2UQKRZMWSCWZ"
-run = '''
-pnpm build
-pnpm test
+run = [{ task = "build" }, { task = "test" }, '''
 aws s3 cp dist "s3://$BUCKET" \
   --recursive \
   --exclude "*" \
@@ -40,4 +38,4 @@ aws s3 cp dist "s3://$BUCKET" \
 aws cloudfront create-invalidation \
   --distribution-id "$DISTRIBUTION" \
   --paths "/index.html"
-'''
+''']

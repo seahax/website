@@ -4,11 +4,12 @@ task_show_full_cmd = true
 
 [tools]
 npm = "latest"
-pnpm = "latest"
 node = "lts"
 'npm:@anthropic-ai/claude-code' = "latest"
+
 go = "latest"
 "go:github.com/766b/go-outliner" = "latest"
+
 awscli = "latest"
 doctl = "latest"
 terraform = "1.14.3"
@@ -16,9 +17,3 @@ terraform = "1.14.3"
 [env]
 AWS_PAGER = ""
 VITE_MODE = "development"
-
-[tasks.init]
-run = [
-  'cd "{{ config_root }}/api" && go mod download',
-  'cd "{{ config_root }}/home" && pnpm install',
-]
