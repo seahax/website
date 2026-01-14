@@ -17,6 +17,7 @@ export default function ProjectBadge({ type, projectName, ...Props }: Props): JS
           : `https://img.shields.io/npm/v/${projectName}?style=for-the-badge&label=version&labelColor=gray&color=%23bc3433`
       }
       borderRadius={(theme) => theme.spacing(0.5)}
+      height={'1.375rem'}
       {...Props}
     />
   );

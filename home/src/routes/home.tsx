@@ -90,9 +90,9 @@ function Home(): JSX.Element {
         </Typography>
         <Box
           display="grid"
-          gridTemplateColumns={'repeat(auto-fit, minmax(350px, 1fr))'}
+          gridTemplateColumns={'repeat(auto-fit, minmax(260px, 1fr))'}
           gridAutoRows="1fr"
-          gap={(theme) => theme.spacing(4)}
+          gap={(theme) => theme.spacing(2)}
         >
           {projects.map((project, i) => {
             return (
@@ -123,24 +123,31 @@ function Home(): JSX.Element {
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                     flexGrow: 1,
+                    gap: 0.5,
                   }}
                   >
-                    <Typography variant="h3" marginBlockEnd={1} display="flex" gap={1.5} alignItems="center">
+                    <Typography
+                      display="flex"
+                      gap={1.5}
+                      alignItems="center"
+                      fontSize={'1.125rem'}
+                      fontWeight={400}
+                    >
                       <Box
                         component={project.type === 'go' ? IconBrandGolang : IconBrandNpm}
-                        size="3rem"
+                        size="2rem"
                         strokeWidth={1.25}
                         aria-label={project.type === 'go' ? 'Go' : 'TypeScript/NPM'}
                       />
-                      <Box component="span" marginBlockEnd={0.875}>{project.shortName}</Box>
+                      <Box component="span" marginBlockEnd={0.6}>{project.shortName}</Box>
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" paddingInline={0.75}>
+                    <Typography variant="body1" color="textSecondary" paddingInline={0.75}>
                       {project.description}
                     </Typography>
                     <Box
                       display="flex"
                       justifyContent="flex-end"
-                      marginBlockStart={3}
+                      marginBlockStart={1.5}
                     >
                       <ProjectBadge projectName={project.name} type={project.type} />
                     </Box>
