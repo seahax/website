@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.14.1",
     "@fontsource-variable/fredoka": "^5.2.10",
     "@fontsource/walter-turncoat": "^5.2.7",
+    "@mui/lab": "^7.0.1-beta.21",
     "@mui/material": "^7.3.5",
     "@seahax/glimmer": "^0.1.13",
     "@sentry/react": "^10.27.0",

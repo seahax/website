@@ -1,8 +1,10 @@
+import { Masonry } from '@mui/lab';
 import {
   Box,
   Card,
   CardActionArea,
   CardContent,
+  CardHeader,
   Container,
   Fade,
   Typography,
@@ -88,12 +90,7 @@ function Home(): JSX.Element {
         <Typography variant="h2">
           My Projects
         </Typography>
-        <Box
-          display="grid"
-          gridTemplateColumns={'repeat(auto-fit, minmax(260px, 1fr))'}
-          gridAutoRows="1fr"
-          gap={(theme) => theme.spacing(2)}
-        >
+        <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
           {projects.map((project, i) => {
             return (
               <Card
@@ -118,37 +115,47 @@ function Home(): JSX.Element {
                     alignItems: 'stretch',
                   }}
                 >
+                  <CardHeader
+                    sx={{
+                      borderBlockEnd: (theme) => `1px solid ${theme.palette.divider}`,
+                      paddingBlock: 1,
+                      paddingInline: 1.5,
+                    }}
+                    disableTypography
+                    slots={{
+                      content: () => (
+                        <Typography
+                          display="flex"
+                          gap={1.25}
+                          alignItems="center"
+                          fontSize={'1.125rem'}
+                          fontWeight={500}
+                        >
+                          <Box
+                            component={project.type === 'go' ? IconBrandGolang : IconBrandNpm}
+                            size="2rem"
+                            strokeWidth={1.25}
+                            aria-label={project.type === 'go' ? 'Go' : 'TypeScript/NPM'}
+                          />
+                          <Box component="span" marginBlockEnd={0.6}>{project.shortName}</Box>
+                        </Typography>
+                      ),
+                    }}
+                  >
+                    Test
+                  </CardHeader>
                   <CardContent sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                     flexGrow: 1,
-                    gap: 0.5,
+                    gap: 2.5,
                   }}
                   >
-                    <Typography
-                      display="flex"
-                      gap={1.5}
-                      alignItems="center"
-                      fontSize={'1.125rem'}
-                      fontWeight={400}
-                    >
-                      <Box
-                        component={project.type === 'go' ? IconBrandGolang : IconBrandNpm}
-                        size="2rem"
-                        strokeWidth={1.25}
-                        aria-label={project.type === 'go' ? 'Go' : 'TypeScript/NPM'}
-                      />
-                      <Box component="span" marginBlockEnd={0.6}>{project.shortName}</Box>
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary" paddingInline={0.75}>
+                    <Typography variant="body1" color="textSecondary" flex={'auto'}>
                       {project.description}
                     </Typography>
-                    <Box
-                      display="flex"
-                      justifyContent="flex-end"
-                      marginBlockStart={1.5}
-                    >
+                    <Box display="flex" justifyContent="flex-end">
                       <ProjectBadge projectName={project.name} type={project.type} />
                     </Box>
                   </CardContent>
@@ -156,7 +163,7 @@ function Home(): JSX.Element {
               </Card>
             );
           })}
-        </Box>
+        </Masonry>
       </Container>
     </>
   );
