@@ -8,6 +8,47 @@ export interface Project {
 
 const projects: readonly Project[] = [
   {
+    type: 'go',
+    name: 'go/env',
+    shortName: 'env',
+    description: 'Parse and validate environment variables.',
+    homepage: 'https://pkg.go.dev/seahax.com/go/env',
+  },
+  {
+    type: 'go',
+    name: 'go/serve',
+    shortName: 'serve',
+    description: 'A simple production ready static HTTP server.',
+    homepage: 'https://pkg.go.dev/seahax.com/go/serve',
+  },
+  {
+    type: 'go',
+    name: 'go/shorthand',
+    shortName: 'shorthand',
+    description: `
+    Utilities for simple things that are unnecessarily verbose or missing
+    from the standard library. I miss ternary operators and null (nil)
+    coalescing.`,
+    homepage: 'https://pkg.go.dev/seahax.com/go/shorthand',
+  },
+  {
+    type: 'go',
+    name: 'go/xhttp',
+    shortName: 'xhttp',
+    description: `
+    A collection of lightweight and opinionated utilities to make working
+    with the net/http package a little easier.`,
+    homepage: 'https://pkg.go.dev/seahax.com/go/xhttp',
+  },
+  {
+    type: 'go',
+    name: 'go/s3upload',
+    shortName: 's3upload',
+    description: `
+    Yet another S3 uploader.`,
+    homepage: 'https://pkg.go.dev/seahax.com/go/s3upload',
+  },
+  {
     type: 'npm',
     name: '@seahax/background',
     shortName: 'background',
@@ -24,13 +65,6 @@ const projects: readonly Project[] = [
     Make a recursive deep copy, treating functions and class
     instances as atomic values.`,
     homepage: 'https://www.npmjs.com/package/@seahax/deep-copy',
-  },
-  {
-    type: 'go',
-    name: 'go/env',
-    shortName: 'env',
-    description: 'Parse and validate environment variables.',
-    homepage: 'https://pkg.go.dev/seahax.com/go/env',
   },
   {
     type: 'npm',
@@ -79,28 +113,11 @@ const projects: readonly Project[] = [
     homepage: 'https://www.npmjs.com/package/@seahax/semaphore',
   },
   {
-    type: 'go',
-    name: 'go/serve',
-    shortName: 'serve',
-    description: 'A simple production ready static HTTP server.',
-    homepage: 'https://pkg.go.dev/seahax.com/go/serve',
-  },
-  {
     type: 'npm',
     name: '@seahax/service',
     shortName: 'service',
     description: 'Dependency injection done light.',
     homepage: 'https://www.npmjs.com/package/@seahax/service',
-  },
-  {
-    type: 'go',
-    name: 'go/shorthand',
-    shortName: 'shorthand',
-    description: `
-    Utilities for simple things that are unnecessarily verbose or missing
-    from the standard library. I miss ternary operators and null (nil)
-    coalescing.`,
-    homepage: 'https://pkg.go.dev/seahax.com/go/shorthand',
   },
   {
     type: 'npm',
@@ -133,15 +150,6 @@ const projects: readonly Project[] = [
     shortName: 'vite-plugin-zip',
     description: 'Vite plugin that zips up the build output.',
     homepage: 'https://www.npmjs.com/package/@seahax/vite-plugin-zip',
-  },
-  {
-    type: 'go',
-    name: 'go/xhttp',
-    shortName: 'xhttp',
-    description: `
-    A collection of lightweight and opinionated utilities to make working
-    with the net/http package a little easier.`,
-    homepage: 'https://pkg.go.dev/seahax.com/go/xhttp',
   },
   {
     type: 'npm',
