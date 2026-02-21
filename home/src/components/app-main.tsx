@@ -20,7 +20,7 @@ export default function AppMain({ children }: PropsWithChildren = {}): JSX.Eleme
         return ({
           backgroundColor: dark,
           backgroundImage: `
-          linear-gradient(to bottom, transparent, 60vh, ${dark} 100vh),
+          linear-gradient(to bottom, transparent, min(60vh, 60%), ${dark} 100%),
           radial-gradient(max(100vw, 100vh) circle at 10% 0%, ${light}, ${dark})
           `,
         });
