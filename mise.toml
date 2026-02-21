@@ -5,10 +5,8 @@ task_show_full_cmd = true
 [tools]
 npm = "latest"
 node = "lts"
-'npm:@anthropic-ai/claude-code' = "latest"
 
 go = "latest"
-"go:github.com/766b/go-outliner" = "latest"
 
 awscli = "latest"
 doctl = "latest"
