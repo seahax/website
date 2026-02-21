@@ -1,3 +1,6 @@
+[tools]
+"go:seahax.com/go/s3upload" = "latest"
+
 [env]
 _.path = ["{{ config_root }}/node_modules/.bin"]
 
@@ -23,18 +26,14 @@ description = "Deploy home frontend to CDN"
 env.BUCKET = "cdn--seahax-194722422414"
 env.DISTRIBUTION = "E2UQKRZMWSCWZ"
 run = [{ task = "build" }, { task = "test" }, '''
-aws s3 cp dist "s3://$BUCKET" \
-  --recursive \
-  --exclude "*" \
-  --include "assets/*" \
-  --cache-control "public, max-age=31536000, immutable" \
-  --storage-class INTELLIGENT_TIERING
-aws s3 cp dist "s3://$BUCKET" \
-  --recursive \
-  --exclude "assets/*" \
-  --exclude "*tsbuildinfo" \
-  --cache-control "public, max-age=60, stale-while-revalidate=2592000" \
-  --storage-class INTELLIGENT_TIERING
+s3upload -root dist -bucket "$BUCKET" \
+  -i '^assets/' \
+  -cache-control 'public, max-age=31536000, immutable'
+echo
+s3upload -root dist -bucket "$BUCKET" \
+  -e '^assets/' -e '(^|/)tsbuildinfo$' \
+  -cache-control 'public, max-age=60, stale-while-revalidate=2592000'
+echo
 aws cloudfront create-invalidation \
   --distribution-id "$DISTRIBUTION" \
   --paths "/index.html"
