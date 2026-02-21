@@ -6,20 +6,13 @@ import {
   CardContent,
   CardHeader,
   Container,
-  Fade,
   Typography,
-  useMediaQuery,
-  useScrollTrigger,
 } from '@mui/material';
-import { createDefaultRenderer, createGlimmer } from '@seahax/glimmer';
 import { IconBrandGolang, IconBrandNpm } from '@tabler/icons-react';
-import { type JSX, useEffect, useRef } from 'react';
+import { type JSX } from 'react';
 
 import { AppPage } from '../components/app-page.tsx';
-import Canvas from '../components/canvas.tsx';
 import ProjectBadge from '../components/project-badge.tsx';
-import useDelay from '../hooks/use-delay.ts';
-import { useDocumentVisible } from '../hooks/use-document-visible.ts';
 import projects from '../services/projects.ts';
 import HomeMdx from './home.mdx';
 import defineRoute from './util/define-route.tsx';
@@ -31,34 +24,8 @@ export default defineRoute({
 // TODO: Use the LinkedIn API to list work experience.
 
 function Home(): JSX.Element {
-  const glimmerCanvas = useRef<HTMLCanvasElement>(null);
-  const glimmerDocumentVisible = useDocumentVisible();
-  const glimmerMediaQuery = useMediaQuery((theme) => theme.breakpoints.up('sm'));
-  const glimmerScrollTrigger = !useScrollTrigger({ disableHysteresis: true, threshold: 100 });
-  const glimmerVisible = useDelay(glimmerScrollTrigger, glimmerScrollTrigger, (value) => value ? 0 : 1000);
-
-  useEffect(() => {
-    if (!glimmerCanvas.current || !glimmerDocumentVisible || !glimmerMediaQuery || !glimmerVisible) return;
-    const context = glimmerCanvas.current.getContext('2d')!;
-    const glimmer = createGlimmer(context, {
-      count: 750,
-      resizeCanvas: 'hidpi',
-      renderer: createDefaultRenderer({
-        saturation: 65,
-        lightness: 55,
-        linkWidth: 0.5,
-      }),
-    });
-    return () => glimmer.stop();
-  }, [glimmerDocumentVisible, glimmerMediaQuery, glimmerVisible]);
-
   return (
     <>
-      {glimmerDocumentVisible && glimmerMediaQuery && (
-        <Fade in={glimmerScrollTrigger} appear={false} timeout={1000}>
-          <Canvas canvasRef={glimmerCanvas} position="absolute" top={0} width="100%" height="100%" maxHeight="100lvh" />
-        </Fade>
-      )}
       <AppPage zIndex={1}>
         <Container
           sx={(theme) => ({
