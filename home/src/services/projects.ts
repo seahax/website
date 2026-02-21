@@ -55,7 +55,7 @@ const projects: readonly Project[] = [
     description: `
     Run an async task without waiting for it to return, the responsible
     way.`,
-    homepage: 'https://www.npmjs.com/package/@seahax/background',
+    homepage: 'https://npmx.dev/package/@seahax/background',
   },
   {
     type: 'npm',
@@ -64,21 +64,21 @@ const projects: readonly Project[] = [
     description: `
     Make a recursive deep copy, treating functions and class
     instances as atomic values.`,
-    homepage: 'https://www.npmjs.com/package/@seahax/deep-copy',
+    homepage: 'https://npmx.dev/package/@seahax/deep-copy',
   },
   {
     type: 'npm',
     name: '@seahax/eslint-plugin-wrap',
     shortName: 'eslint-plugin-wrap',
     description: 'ESLint plugin with wrapping fixes for long lines.',
-    homepage: 'https://www.npmjs.com/package/@seahax/eslint-plugin-wrap',
+    homepage: 'https://npmx.dev/package/@seahax/eslint-plugin-wrap',
   },
   {
     type: 'npm',
     name: '@seahax/eslint-progress',
     shortName: 'eslint-progress',
     description: 'ESLint plugin that prints filenames as they are linted.',
-    homepage: 'https://www.npmjs.com/package/@seahax/eslint-progress',
+    homepage: 'https://npmx.dev/package/@seahax/eslint-progress',
   },
   {
     type: 'npm',
@@ -86,14 +86,14 @@ const projects: readonly Project[] = [
     shortName: 'glimmer',
     description: `
     Just a fun visual effects project using particles on a canvas.`,
-    homepage: 'https://www.npmjs.com/package/@seahax/glimmer',
+    homepage: 'https://npmx.dev/package/@seahax/glimmer',
   },
   {
     type: 'npm',
     name: '@seahax/interval',
     shortName: 'interval',
     description: 'Convert units of time to other units of time.',
-    homepage: 'https://www.npmjs.com/package/@seahax/interval',
+    homepage: 'https://npmx.dev/package/@seahax/interval',
   },
   {
     type: 'npm',
@@ -103,28 +103,28 @@ const projects: readonly Project[] = [
     Because life's too short to type 'npm run test:unit && npm run
     test:integration && npm run test:e2e' when you could just say 'run-all
     test'.`,
-    homepage: 'https://www.npmjs.com/package/@seahax/run-all',
+    homepage: 'https://npmx.dev/package/@seahax/run-all',
   },
   {
     type: 'npm',
     name: '@seahax/semaphore',
     shortName: 'semaphore',
     description: 'An asynchronous semaphore.',
-    homepage: 'https://www.npmjs.com/package/@seahax/semaphore',
+    homepage: 'https://npmx.dev/package/@seahax/semaphore',
   },
   {
     type: 'npm',
     name: '@seahax/service',
     shortName: 'service',
     description: 'Dependency injection done light.',
-    homepage: 'https://www.npmjs.com/package/@seahax/service',
+    homepage: 'https://npmx.dev/package/@seahax/service',
   },
   {
     type: 'npm',
     name: '@seahax/store',
     shortName: 'store',
     description: 'Really simple Redux-like store.',
-    homepage: 'https://www.npmjs.com/package/@seahax/store',
+    homepage: 'https://npmx.dev/package/@seahax/store',
   },
   {
     type: 'npm',
@@ -133,7 +133,7 @@ const projects: readonly Project[] = [
     description: `
     Use Vite to just build a library. It's not that hard. Why are there so
     many settings!?`,
-    homepage: 'https://www.npmjs.com/package/@seahax/vite-plugin-lib',
+    homepage: 'https://npmx.dev/package/@seahax/vite-plugin-lib',
   },
   {
     type: 'npm',
@@ -142,21 +142,21 @@ const projects: readonly Project[] = [
     description: `
     Vite plugin that starts a preview server when the build command is run
     with the \`--watch\` option.`,
-    homepage: 'https://www.npmjs.com/package/@seahax/vite-plugin-preview',
+    homepage: 'https://npmx.dev/package/@seahax/vite-plugin-preview',
   },
   {
     type: 'npm',
     name: '@seahax/vite-plugin-zip',
     shortName: 'vite-plugin-zip',
     description: 'Vite plugin that zips up the build output.',
-    homepage: 'https://www.npmjs.com/package/@seahax/vite-plugin-zip',
+    homepage: 'https://npmx.dev/package/@seahax/vite-plugin-zip',
   },
   {
     type: 'npm',
     name: '@seahax/yaml-vars',
     shortName: 'yaml-vars',
     description: 'Utility that enables Terraform style input variables in any YAML file.',
-    homepage: 'https://www.npmjs.com/package/@seahax/yaml-vars',
+    homepage: 'https://npmx.dev/package/@seahax/yaml-vars',
   },
   {
     type: 'npm',
@@ -165,7 +165,7 @@ const projects: readonly Project[] = [
     description: `
     Small quality-of-life enhancements to the Node built-in parseArgs
     utility, and a simple command/sub-command framework.`,
-    homepage: 'https://www.npmjs.com/package/@seahax/cli',
+    homepage: 'https://npmx.dev/package/@seahax/cli',
   },
 ] as const;
 
