@@ -14,16 +14,15 @@ export default function AppMain({ children }: PropsWithChildren = {}): JSX.Eleme
       boxShadow={(theme) => theme.shadows[4]}
       sx={(theme) => {
         const { background } = theme.palette;
-        const light = theme.lighten(background.paper, 0.075);
-        const dark = theme.darken(background.default, 0.475);
+        const light = theme.lighten(background.paper, 0.15);
+        const dark = theme.darken(background.default, 0.3);
 
         return ({
           backgroundColor: dark,
           backgroundImage: `
-          linear-gradient(to bottom, transparent, 60%, ${dark}),
-          radial-gradient(farthest-corner circle at 10% 0%, ${light}, ${dark} 95%)
+          linear-gradient(to bottom, transparent, 60vh, ${dark} 100vh),
+          radial-gradient(max(100vw, 100vh) circle at 10% 0%, ${light}, ${dark})
           `,
-          backgroundAttachment: 'fixed',
         });
       }}
     >
