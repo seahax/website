@@ -27,23 +27,21 @@ resource "kubernetes_deployment_v1" "self" {
         labels = {
           app = var.name
         }
+        annotations = {
+          // Force restarting pods on every apply.
+          "kubectl.kubernetes.io/restartedAt" = timestamp()
+        }
       }
 
       spec {
         container {
-          name              = var.name
-          image             = var.image
+          name  = var.name
+          image = var.image
+          // Restarting pods will always get changes to the tagged image.
           image_pull_policy = "Always"
 
           port {
             container_port = var.port
-          }
-
-          env {
-            // In conjuntion with the image_pull_policy of "Always", this
-            // forces the deployment to pull the latest image on every apply.
-            name  = "DEPLOY_TIMESTAMP"
-            value = timestamp()
           }
 
           dynamic "env" {
