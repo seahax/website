@@ -11,6 +11,8 @@ module "service-api" {
     APP_ENVIRONMENT = "production",
   }
   env_from_secret = [
-    "api.env"
+    "mongodb.env",
+    "smtp.env",
+    "sentry.env"
   ]
 }
