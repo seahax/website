@@ -5,12 +5,15 @@ task_show_full_cmd = true
 [tools]
 npm = "latest"
 node = "lts"
-
 go = "latest"
-
 awscli = "latest"
 doctl = "latest"
 terraform = "1.14.3"
+kubectl = "latest"
+kubeseal = "latest"
+cmctl = "latest"
+k9s = "latest"
+gh = "latest"
 
 [env]
 AWS_PAGER = ""
