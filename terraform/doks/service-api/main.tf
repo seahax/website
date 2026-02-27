@@ -1,5 +1,5 @@
 module "service-api" {
-  source            = "../_modules/service"
+  source            = "../../modules/k8s_service"
   namespace         = "default"
   name              = "api"
   image             = "ghcr.io/seahax/api:latest"

@@ -1,5 +1,5 @@
 module "self" {
-  source    = "../_modules/gateway"
+  source    = "../../modules/k8s_gateway"
   namespace = "default"
   name      = "gateway"
   hostname  = "api.seahax.com"
