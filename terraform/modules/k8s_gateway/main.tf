@@ -25,10 +25,10 @@ resource "kubernetes_manifest" "gateway" {
     spec = {
       gatewayClassName = "cilium"
 
-      listeners = [
+      listeners = flatten([for name, listener in var.listeners : [
         {
-          name     = "http"
-          hostname = var.hostname
+          name     = "http-${name}"
+          hostname = listener.hostname
           protocol = "HTTP"
           port     = 80
 
@@ -39,8 +39,8 @@ resource "kubernetes_manifest" "gateway" {
           }
         },
         {
-          name     = "https"
-          hostname = var.hostname
+          name     = "https-${name}"
+          hostname = listener.hostname
           protocol = "HTTPS"
           port     = 443
 
@@ -61,7 +61,7 @@ resource "kubernetes_manifest" "gateway" {
             ]
           }
         }
-      ]
+      ]])
     }
   }
 
@@ -126,10 +126,12 @@ variable "name" {
   default     = "gateway"
 }
 
-variable "hostname" {
-  description = "The hostname to use for the gateway listener"
-  type        = string
-  nullable    = false
+variable "listeners" {
+  description = "The listeners to create on the gateway"
+  type = map(object({
+    hostname = string
+  }))
+  nullable = false
 }
 
 variable "email" {

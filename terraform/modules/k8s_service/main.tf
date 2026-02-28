@@ -40,8 +40,13 @@ resource "kubernetes_deployment_v1" "self" {
           // Restarting pods will always get changes to the tagged image.
           image_pull_policy = "Always"
 
-          port {
-            container_port = var.port
+          dynamic "port" {
+            for_each = tolist(toset([for port in var.ports : coalesce(port.container_port, port.port)]))
+            iterator = each
+
+            content {
+              container_port = each.value
+            }
           }
 
           dynamic "env" {
@@ -89,98 +94,14 @@ resource "kubernetes_service_v1" "self" {
       app = var.name
     }
 
-    port {
-      port        = var.port
-      target_port = var.port
-    }
-  }
-}
+    dynamic "port" {
+      for_each = var.ports
+      iterator = each
 
-resource "kubernetes_manifest" "https" {
-  manifest = {
-    apiVersion = "gateway.networking.k8s.io/v1"
-    kind       = "HTTPRoute"
-
-    metadata = {
-      name      = var.name
-      namespace = var.namespace
-    }
-
-    spec = {
-      parentRefs = [
-        {
-          name        = var.gateway
-          namespace   = var.namespace
-          sectionName = "https"
-        }
-      ]
-
-      rules = [
-        {
-          matches = [
-            {
-              path = {
-                type  = var.exact ? "PathExact" : "PathPrefix"
-                value = var.path
-              }
-            }
-          ]
-
-          backendRefs = [
-            {
-              kind      = "Service"
-              name      = var.name
-              namespace = var.namespace
-              port      = var.port
-            }
-          ]
-        }
-      ]
-    }
-  }
-}
-
-resource "kubernetes_manifest" "http-redirect" {
-  manifest = {
-    apiVersion = "gateway.networking.k8s.io/v1"
-    kind       = "HTTPRoute"
-
-    metadata = {
-      name      = "${var.name}-redirect-to-https"
-      namespace = var.namespace
-    }
-
-    spec = {
-      parentRefs = [
-        {
-          name        = var.gateway
-          namespace   = var.namespace
-          sectionName = "http"
-        }
-      ]
-
-      rules = [
-        {
-          matches = [
-            {
-              path = {
-                type  = var.exact ? "PathExact" : "PathPrefix"
-                value = var.path
-              }
-            }
-          ]
-          filters = [
-            {
-              type = "RequestRedirect"
-
-              requestRedirect = {
-                scheme     = "https"
-                statusCode = 301
-              }
-            }
-          ]
-        }
-      ]
+      content {
+        port        = each.value.port
+        target_port = coalesce(each.value.container_port, each.value.port)
+      }
     }
   }
 }
@@ -215,28 +136,12 @@ variable "image_pull_secret" {
   default     = ""
 }
 
-variable "port" {
-  description = "The container, pod, and service port."
-  type        = number
-  nullable    = false
-}
-
-variable "path" {
-  description = "The HTTP gateway route path prefix for the service."
-  type        = string
-  nullable    = false
-}
-
-variable "exact" {
-  description = "Whether to match the HTTP gateway route path exactly or as a prefix."
-  type        = bool
-  default     = false
-}
-
-variable "gateway" {
-  description = "The name of the gateway to attach the http route path to."
-  type        = string
-  default     = "gateway"
+variable "ports" {
+  description = "The list of ports that are exposed by this service"
+  type = list(object({
+    port           = number
+    container_port = optional(number)
+  }))
 }
 
 variable "env" {
@@ -249,4 +154,12 @@ variable "env_from_secret" {
   description = "Secrets to be used as environment variables in the deployment."
   type        = list(string)
   default     = []
+}
+
+output "name" {
+  value = var.name
+}
+
+output "ports" {
+  value = [for port in var.ports : port.port]
 }
