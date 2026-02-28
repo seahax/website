@@ -25,6 +25,13 @@ resource "kubernetes_manifest" "gateway" {
     spec = {
       gatewayClassName = "cilium"
 
+      infrastructure = {
+        annotations = {
+          "service.beta.kubernetes.io/do-loadbalancer-name"      = var.loadbalancer_name
+          "service.beta.kubernetes.io/do-loadbalancer-size-unit" = var.loadbalancer_size
+        }
+      }
+
       listeners = flatten([for name, listener in var.listeners : [
         {
           name     = "http-${name}"
@@ -34,7 +41,7 @@ resource "kubernetes_manifest" "gateway" {
 
           allowedRoutes = {
             namespaces = {
-              from = "All"
+              from = var.shared ? "All" : "Same"
             }
           }
         },
@@ -46,7 +53,7 @@ resource "kubernetes_manifest" "gateway" {
 
           allowedRoutes = {
             namespaces = {
-              from = "All"
+              from = var.shared ? "All" : "Same"
             }
           }
 
@@ -108,10 +115,6 @@ resource "kubernetes_manifest" "issuer" {
       }
     }
   }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 variable "namespace" {
@@ -126,6 +129,18 @@ variable "name" {
   default     = "gateway"
 }
 
+variable "loadbalancer_name" {
+  description = "The name of the loadbalancer created by the Gateway"
+  type        = string
+  default     = null
+}
+
+variable "loadbalancer_size" {
+  description = "The number of load balancer instances"
+  type        = number
+  default     = 1
+}
+
 variable "listeners" {
   description = "The listeners to create on the gateway"
   type = map(object({
@@ -138,4 +153,10 @@ variable "email" {
   description = "The email address to use for ACME registration"
   type        = string
   nullable    = false
+}
+
+variable "shared" {
+  description = "If true, allow routes in any namespace to attach to listeners"
+  type        = bool
+  default     = false
 }

@@ -1,5 +1,5 @@
 module "service" {
-  source            = "../../modules/k8s_service"
+  source            = "../../../modules/k8s_service"
   namespace         = "default"
   name              = "api"
   image             = "ghcr.io/seahax/api:latest"
@@ -17,9 +17,10 @@ module "service" {
 }
 
 module "route_root" {
-  source       = "../../modules/k8s_http_route"
+  source       = "../../../modules/k8s_http_route"
   namespace    = "default"
   name         = "api-root"
+  gateway      = "seahax"
   listener     = "api"
   path         = "/"
   service_name = module.service.name

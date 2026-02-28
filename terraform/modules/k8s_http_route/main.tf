@@ -119,7 +119,7 @@ variable "exact" {
 variable "gateway" {
   description = "The name of the gateway to attach the route to."
   type        = string
-  default     = "gateway"
+  nullable    = false
 }
 
 variable "listener" {
