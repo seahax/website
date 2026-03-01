@@ -1,5 +1,4 @@
-resource "kubernetes_namespace_v1" "self" {
-  metadata {
-    name = "service"
-  }
+module "namespace" {
+  source = "../../modules/k8s_namespace"
+  name   = "service"
 }

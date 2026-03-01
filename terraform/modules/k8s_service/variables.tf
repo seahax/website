@@ -17,7 +17,7 @@ variable "image" {
 variable "container_port" {
   description = "Port the container is listening on."
   type        = number
-  nullable    = false
+  default     = 8080
 }
 
 variable "gateway" {
@@ -34,6 +34,8 @@ variable "listeners" {
 
 variable "prefix" {
   description = "HTTP route path prefix."
+  type        = string
+  default     = "/"
 }
 
 variable "replicas" {
@@ -58,10 +60,4 @@ variable "secret_regcred_json_file" {
   description = "Path to a JSON file containing docker config credentials for image pulling."
   type        = string
   default     = null
-}
-
-variable "restart_on_apply" {
-  description = "Restart pods on terraform apply (even if there are no changes)."
-  type        = bool
-  default     = false
 }
