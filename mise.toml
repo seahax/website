@@ -1,6 +1,9 @@
 [settings]
 experimental = true
-task_show_full_cmd = true
+env_shell_expand = true
+
+[settings.task]
+show_full_cmd = true
 
 [tools]
 npm = "latest"
@@ -16,5 +19,4 @@ k9s = "latest"
 gh = "latest"
 
 [env]
-AWS_PAGER = ""
-VITE_MODE = "development"
+_.file = [".env"]
