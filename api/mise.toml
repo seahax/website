@@ -16,8 +16,6 @@ env.GOOS = "linux"
 env.GOARCH = "amd64"
 env.CGO_ENABLED = 0
 run = '''
-mkdir -p out
-echo "$(date '+v%Y.%m.%d-at-%H%M%S')" > out/version
 rm -rf dist/*
 go build -o dist/api-service .
 '''
@@ -30,8 +28,8 @@ docker build --no-cache --progress=plain \
   --platform linux/amd64 \
   --build-arg APP_COMMIT="$(git rev-parse --short HEAD)" \
   --build-arg APP_BUILD_TIMESTAMP="$(date +%s)" \
+  -t ghcr.io/seahax/api:$(cat go.version) \
   -t ghcr.io/seahax/api:latest \
-  -t ghcr.io/seahax/api:$(cat out/version) \
   .
 '''
 ]
@@ -41,7 +39,7 @@ run = [
   { task = "build-image" },
   '''
 docker login ghcr.io -u seahax --password "${GITHUB_TOKEN}"
-docker push ghcr.io/seahax/api:$(cat out/version)
+docker push ghcr.io/seahax/api:$(cat go.version)
 docker push ghcr.io/seahax/api:latest
 '''
 ]
