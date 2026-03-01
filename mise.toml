@@ -19,4 +19,5 @@ k9s = "latest"
 gh = "latest"
 
 [env]
-_.file = [".env"]
+AWS_PAGER = ""
+VITE_MODE = "development"
