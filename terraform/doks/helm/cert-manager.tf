@@ -3,8 +3,9 @@ resource "helm_release" "cert-manager" {
   chart            = "cert-manager"
   version          = "v1.19.3"
   name             = "cert-manager"
-  namespace        = "default"
+  namespace        = "cert-manager"
   create_namespace = true
+
   set = [
     {
       name  = "config.apiVersion"
@@ -19,7 +20,7 @@ resource "helm_release" "cert-manager" {
       value = "true"
     },
     {
-      name = "config.enableCertificateOwnerRef"
+      name  = "config.enableCertificateOwnerRef"
       value = "true"
     },
     {

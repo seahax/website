@@ -24,3 +24,4 @@ local.*
 go.work*
 tfplan
 *.tsbuildinfo
+.secret*
