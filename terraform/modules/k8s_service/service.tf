@@ -1,17 +1,17 @@
 resource "kubernetes_service_v1" "self" {
   metadata {
-    name      = var.name
     namespace = var.namespace
+    name      = var.name
   }
 
   spec {
     selector = {
-      app = var.name
+      deployment = kubernetes_deployment_v1.self.spec[0].template[0].metadata[0].labels["deployment"]
     }
 
     port {
       port        = local.service_port
-      target_port = var.container_port
+      target_port = kubernetes_deployment_v1.self.spec[0].template[0].spec[0].container[0].port[0].container_port
     }
   }
 }

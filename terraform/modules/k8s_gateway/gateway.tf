@@ -4,8 +4,8 @@ resource "kubernetes_manifest" "gateway" {
     kind       = "Gateway"
 
     metadata = {
-      name      = var.name
       namespace = var.namespace
+      name      = var.name
 
       annotations = {
         "service.beta.kubernetes.io/do-loadbalancer-tls-passthrough" = "true"

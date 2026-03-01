@@ -4,14 +4,14 @@ resource "kubernetes_manifest" "https" {
     kind       = "HTTPRoute"
 
     metadata = {
-      name      = var.name
       namespace = var.namespace
+      name      = var.name
     }
 
     spec = {
       parentRefs = [for listener in var.listeners : {
-        name        = var.gateway
         namespace   = var.namespace
+        name        = var.gateway
         sectionName = listener
       }]
 
@@ -29,9 +29,9 @@ resource "kubernetes_manifest" "https" {
           backendRefs = [
             {
               kind      = "Service"
-              name      = kubernetes_service_v1.self.metadata[0].name
               namespace = var.namespace
-              port      = local.service_port
+              name      = kubernetes_service_v1.self.metadata[0].name
+              port      = kubernetes_service_v1.self.spec[0].port[0].port
             }
           ]
         }

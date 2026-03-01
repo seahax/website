@@ -1,7 +1,7 @@
 resource "kubernetes_deployment_v1" "self" {
   metadata {
-    name      = var.name
     namespace = var.namespace
+    name      = var.name
   }
 
   spec {

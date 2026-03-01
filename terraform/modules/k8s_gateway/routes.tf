@@ -9,10 +9,10 @@ resource "kubernetes_manifest" "http-to-https-redirect" {
     }
 
     spec = {
-      parentRefs = [for listenerName in values(local.http_listeners) : {
+      parentRefs = [for name in local.http_listener_names : {
         name        = kubernetes_manifest.gateway.manifest.metadata.name
         namespace   = var.namespace
-        sectionName = listenerName
+        sectionName = name
       }]
 
       rules = [

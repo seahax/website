@@ -4,8 +4,8 @@ resource "kubernetes_manifest" "issuer" {
     kind       = "Issuer"
 
     metadata = {
-      name      = "${var.name}-issuer"
       namespace = var.namespace
+      name      = "${var.name}-issuer"
     }
 
     spec = {
@@ -24,8 +24,8 @@ resource "kubernetes_manifest" "issuer" {
                 parentRefs = [
                   {
                     kind      = "Gateway"
-                    name      = var.name
                     namespace = var.namespace
+                    name      = var.name
                   }
                 ]
               }
