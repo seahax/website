@@ -8,44 +8,41 @@ APP_SMTP_USERNAME = "noreply@seahax.com"
 [tasks.start]
 env.APP_MONGODB_URL = { required = true }
 env.APP_SMTP_TOKEN = { required = true }
+env.APP_COMMIT = "development"
 run = [
   { task = "build" },
   '''
-export APP_COMMIT=development
-export APP_BUILD_TIMESTAMP=$(date +%s)
-docker-compose up --remove-orphans --no-attach mongo
-'''
+  export APP_BUILD_TIMESTAMP=$(date +%s)
+  docker-compose up --remove-orphans --no-attach mongo
+  '''
 ]
 
 [tasks.build]
 env.GOOS = "linux"
 env.GOARCH = "amd64"
 env.CGO_ENABLED = 0
-run = '''
-rm -rf dist/*
-go build -o dist/api-service .
-'''
+run = ["rm -rf dist/*", "go build -o dist/api-service ."]
 
 [tasks.build-image]
 run = [
   { task = "build" },
   '''
-docker build --no-cache --progress=plain \
-  --platform linux/amd64 \
-  --build-arg APP_COMMIT="$(git rev-parse --short HEAD)" \
-  --build-arg APP_BUILD_TIMESTAMP="$(date +%s)" \
-  -t ghcr.io/seahax/api:$(cat go.version) \
-  -t ghcr.io/seahax/api:latest \
-  .
-'''
+  docker build --no-cache --progress=plain \
+    --platform linux/amd64 \
+    --build-arg APP_COMMIT="$(git rev-parse --short HEAD)" \
+    --build-arg APP_BUILD_TIMESTAMP="$(date +%s)" \
+    -t ghcr.io/seahax/api:$(cat go.version) \
+    -t ghcr.io/seahax/api:latest \
+    .
+  '''
 ]
 
 [tasks.push-image]
 run = [
   { task = "build-image" },
-  '''
-docker login ghcr.io -u seahax --password "${GITHUB_TOKEN}"
-docker push ghcr.io/seahax/api:$(cat go.version)
-docker push ghcr.io/seahax/api:latest
-'''
+  'docker login ghcr.io -u seahax --password "${GITHUB_TOKEN}"',
+  'if [ ! -z "$(git status . --porcelain)" ]; then exit 1; fi',
+  "if docker manifest inspect ghcr.io/seahax/api:$(cat go.version) &>/dev/null; then exit 1; fi",
+  "docker push ghcr.io/seahax/api:$(cat go.version)",
+  "docker push ghcr.io/seahax/api:latest"
 ]
