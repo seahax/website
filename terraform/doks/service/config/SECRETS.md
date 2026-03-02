@@ -2,7 +2,7 @@
 
 The following files are required, but not checked into source control.
 
-## `.secret-env.yaml`
+## .secret-env.yaml ([file](.secret-env.yaml))
 
 Environment variables that contain sensitive information or information related to sensitive information.
 
@@ -15,7 +15,7 @@ APP_SMTP_USERNAME: noreply@seahax.com
 APP_SMTP_TOKEN: ...
 ```
 
-## `.secret-regcred.json`
+## .secret-regcred.json ([file](.secret-regcred.json))
 
 Docker registry credentials.
 
