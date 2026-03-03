@@ -1,4 +1,4 @@
-package db
+package mongo
 
 import (
 	"context"
@@ -11,11 +11,16 @@ import (
 
 func Check() error {
 	slog.Debug("pinging mongodb")
+	client, err := New()
+
+	if err != nil {
+		return err
+	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 
-	if err := Client.Ping(ctx, readpref.Primary()); err != nil {
+	if err := client.Ping(ctx, readpref.Primary()); err != nil {
 		return fmt.Errorf("failed pinging mongodb: %w", err)
 	}
 

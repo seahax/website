@@ -1,0 +1,20 @@
+package server
+
+import (
+	"seahax.com/go/env"
+)
+
+type Config struct {
+	StartTimestamp int64
+	BuildTimestamp int64  `env:"BUILD_TIMESTAMP"`
+	Commit         string `env:"COMMIT"`
+	Environment    string `env:"ENVIRONMENT" validate:"oneof=development production"`
+	Address        string `env:"ADDRESS"`
+}
+
+func GetConfig() (*Config, error) {
+	return env.Get[Config](
+		env.OptionPrefix("APP_"),
+		env.OptionPlaygroundValidator(),
+	)
+}

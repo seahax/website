@@ -1,15 +1,26 @@
-package main
+package monitor
 
 import (
 	"log/slog"
 	"os"
-	"seahax/api/internal/config"
+	"seahax/core/meta"
 
 	"github.com/getsentry/sentry-go"
-	"seahax.com/go/shorthand"
 )
 
-func init() {
+func Init() error {
+	config, err := GetConfig()
+
+	if err != nil {
+		return err
+	}
+
+	meta, err := meta.Get()
+
+	if err != nil {
+		return err
+	}
+
 	logOptions := &slog.HandlerOptions{Level: config.LogLevel}
 
 	if config.SentryDSN != "" {
@@ -24,12 +35,16 @@ func init() {
 			return attr
 		}
 
-		shorthand.Critical(sentry.Init(sentry.ClientOptions{
-			Debug:          config.Environment != "production",
+		err := sentry.Init(sentry.ClientOptions{
 			Dsn:            config.SentryDSN,
-			Environment:    config.Environment,
+			Debug:          config.SentryDebug,
+			Environment:    meta.Environment,
 			SendDefaultPII: true,
-		}))
+		})
+
+		if err != nil {
+			return err
+		}
 	}
 
 	if config.LogFormat == "json" {
@@ -37,4 +52,6 @@ func init() {
 	} else {
 		slog.SetDefault(slog.New(slog.NewTextHandler(os.Stdout, logOptions)))
 	}
+
+	return nil
 }

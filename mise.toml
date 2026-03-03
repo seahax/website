@@ -9,6 +9,7 @@ show_full_cmd = true
 npm = "latest"
 node = "lts"
 go = "latest"
+"go:github.com/go-delve/delve/cmd/dlv" = "latest"
 awscli = "latest"
 doctl = "latest"
 terraform = "1.14.3"
