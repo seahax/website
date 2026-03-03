@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"time"
 
 	"seahax.com/go/shorthand"
 	"seahax.com/go/xhttp"
@@ -17,9 +18,9 @@ func Listen(routes xhttp.Routes) {
 
 	info := map[string]any{
 		"commit":         config.Commit,
-		"buildTimestamp": config.BuildTimestamp,
-		"startTimestamp": config.StartTimestamp,
 		"environment":    config.Environment,
+		"buildTimestamp": config.BuildTimestamp,
+		"startTimestamp": time.Now().Unix(),
 	}
 
 	routes = xhttp.NewRoutes(routes)
