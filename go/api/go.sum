@@ -1,4 +1,4 @@
-seahax.com/go/shorthand v0.0.15 h1:Bjk18+nE3TNnaLf4I8GrxzsMJ8NrF2/yEgR3O9xGxEU=
-seahax.com/go/shorthand v0.0.15/go.mod h1:IG2t6eeV0RBWUX8E7v9RY6v6CgUf+3nIXrQ1D6g5DCA=
-seahax.com/go/xhttp v0.1.3 h1:89shvx69cYqKM+w2YvqRRXDJ/7HYkzw7FfZdfdLFZrg=
-seahax.com/go/xhttp v0.1.3/go.mod h1:oD3X2FmUrjuwzNO3h2cJ7G1CvqwOy3o2gR1fcMx/2ow=
+seahax.com/go/shorthand v0.0.16 h1:iWj3Xnp0QxYd7IHET+HpxieM+SUW60RqWSYixfnnepI=
+seahax.com/go/shorthand v0.0.16/go.mod h1:IG2t6eeV0RBWUX8E7v9RY6v6CgUf+3nIXrQ1D6g5DCA=
+seahax.com/go/xhttp v0.1.4 h1:tDBZPI/enjB90vbpFSJPGwMHhcoyKSCpX/E+Ix3N9BE=
+seahax.com/go/xhttp v0.1.4/go.mod h1:8ioE3HLLKMbWeBAucg52eNkVmOVwxbow2MCjDD/iPD8=

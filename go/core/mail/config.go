@@ -10,8 +10,5 @@ type Config struct {
 }
 
 func GetConfig() (*Config, error) {
-	return env.Get[Config](
-		env.OptionPrefix("APP_SMTP_"),
-		env.OptionPlaygroundValidator(),
-	)
+	return env.BindWithPrefix[Config]("APP_SMTP_")
 }
