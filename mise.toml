@@ -19,3 +19,6 @@ kubeseal = "latest"
 cmctl = "latest"
 k9s = "latest"
 gh = "latest"
+
+[shell_alias]
+godo = "go run godo"
