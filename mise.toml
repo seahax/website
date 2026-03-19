@@ -1,9 +1,10 @@
 [settings]
 experimental = true
 env_shell_expand = true
+task.show_full_cmd = true
 
-[settings.task]
-show_full_cmd = true
+[env]
+_.file = [".env", ".env.local"]
 
 [tools]
 npm = "latest"
@@ -18,7 +19,3 @@ kubeseal = "latest"
 cmctl = "latest"
 k9s = "latest"
 gh = "latest"
-
-[env]
-AWS_PAGER = ""
-VITE_MODE = "development"

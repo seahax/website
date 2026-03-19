@@ -1,9 +1,5 @@
 [env]
-APP_ENVIRONMENT = "development"
-APP_LOG_LEVEL = "debug"
-APP_SMTP_SERVER = "smtp.protonmail.ch"
-APP_SMTP_PORT = "587"
-APP_SMTP_USERNAME = "noreply@seahax.com"
+_.file = [".env", ".env.local"]
 
 [tasks.start]
 env.APP_MONGODB_URL = { required = true }
