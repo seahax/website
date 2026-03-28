@@ -21,7 +21,7 @@ coverage
 *.local
 *.local.*
 local.*
-go.work*
+go.work.sum
 tfplan
 *.tsbuildinfo
 .secret*

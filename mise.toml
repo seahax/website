@@ -21,4 +21,4 @@ k9s = "latest"
 gh = "latest"
 
 [shell_alias]
-godo = "go run godo"
+x = "go run seahax/x"

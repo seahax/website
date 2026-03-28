@@ -1,10 +1,10 @@
-module godo
+module seahax/x
 
 go 1.25.3
 
 require (
 	github.com/digitalocean/godo v1.178.0
-	seahax.com/go/command v0.2.3
+	seahax.com/go/command v0.2.4
 )
 
 require (
